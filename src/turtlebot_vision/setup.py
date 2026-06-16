@@ -29,6 +29,7 @@ setup(
     'console_scripts': [
         'camera_view = turtlebot_vision.camera_view:main',
         'blue_test = turtlebot_vision.blue_test:main',
+        'smart_line_follower = turtlebot_vision.smart_line_follower:main',
     ],
 },
 )

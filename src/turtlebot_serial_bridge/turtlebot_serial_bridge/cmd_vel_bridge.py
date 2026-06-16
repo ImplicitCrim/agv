@@ -10,7 +10,7 @@ class CmdVelBridge(Node):
         super().__init__('cmd_vel_bridge')
 
         self.ser = serial.Serial(
-            '/dev/ttyUSB0',
+            '/dev/ttyUSB1',
             115200,
             timeout=1
         )
@@ -31,6 +31,10 @@ class CmdVelBridge(Node):
         linear = msg.linear.x
         angular = msg.angular.z
 
+        self.get_logger().info(
+            f"Received cmd_vel: linear={linear:.2f}, angular={angular:.2f}"
+        )
+
         left = int(
             (linear - angular) * 70
         )
@@ -50,6 +54,10 @@ class CmdVelBridge(Node):
         )
 
         command = f"{left},{right}\n"
+
+        self.get_logger().info(
+            f"Sending: {command.strip()}"
+        )
 
         self.ser.write(
             command.encode()
