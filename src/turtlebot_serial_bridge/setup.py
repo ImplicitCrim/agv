@@ -1,4 +1,5 @@
 from setuptools import find_packages, setup
+from glob import glob
 
 package_name = 'turtlebot_serial_bridge'
 
@@ -7,33 +8,31 @@ setup(
     version='0.0.0',
     packages=find_packages(exclude=['test']),
     data_files=[
-    (
-        'share/ament_index/resource_index/packages',
-        ['resource/' + package_name]
-    ),
-    (
-        'share/' + package_name,
-        ['package.xml']
-    ),
-    (
-        'share/' + package_name + '/launch',
-        ['launch/bringup_launch.py']
-    ),
-],
+        (
+            'share/ament_index/resource_index/packages',
+            ['resource/' + package_name]
+        ),
+        (
+            'share/' + package_name,
+            ['package.xml']
+        ),
+        (
+            'share/' + package_name + '/launch',
+            glob('launch/*.launch.py')
+        ),
+    ],
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='learn',
     maintainer_email='learn@todo.todo',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='Turtlebot Serial Bridge',
+    license='Apache-2.0',
     extras_require={
-        'test': [
-            'pytest',
-        ],
+        'test': ['pytest'],
     },
     entry_points={
-    'console_scripts': [
-        'cmd_vel_bridge = turtlebot_serial_bridge.cmd_vel_bridge:main',
-    ],
-},
+        'console_scripts': [
+            'cmd_vel_bridge = turtlebot_serial_bridge.cmd_vel_bridge:main',
+        ],
+    },
 )
